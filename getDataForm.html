@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Submit Form to Google Sheets</title>
+</head>
+
+<body>
+    <form id="myForm" name="myForm">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name"><br><br>
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email"><br><br>
+        <label for="message">Message:</label>
+        <textarea id="message" name="message"></textarea><br><br>
+        <input type="submit" value="Submit">
+    </form>
+
+    <script>
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbx2UGNcOHDPC68Uym_6B6Ne56MP-nE2CR89v4NAtGDRj6RjiT0XwG30nrKaC8R5lzw9/exec';
+
+        const form = document.forms['myForm'];
+
+        form.addEventListener('submit', e => {
+            e.preventDefault();
+            fetch(scriptURL, { method: 'POST', body: new FormData(form) })
+                .then(response => response.text())
+                .then(data => console.log(data))
+                .catch(error => console.error('Error!', error.message))
+        });
+    </script>
+</body>
+
+</html>
